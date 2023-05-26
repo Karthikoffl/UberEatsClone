@@ -4,6 +4,8 @@ import HeaderTabs from '../components/HeaderTabs'
 import SearchBar from '../components/SearchBar'
 import Categories from '../components/Categories'
 import RestaurantItems, { localRestaurants } from '../components/RestaurantItems'
+import { Divider } from 'react-native-elements'
+import BottomTabs from '../components/BottomTabs'
 
 const YELP_API_KEY = "uwPPDZx1pBbbJEYJFMC2SKdBUb-6QXhntKXsmryPVbC1yfPfyxeldqzwHBQjWTBg273AaNZpASBhLwkH9mAT4c-ArCGutf1G5Pkny-7LYeWALBgdIcOW9PIzo4pwZHYx";
 
@@ -45,6 +47,8 @@ export default function Home() {
         <Categories />
         <RestaurantItems restaurantData={restaurantData} />
       </ScrollView>
+      <Divider width={1} />
+      <BottomTabs />
     </SafeAreaView>
   )
 }
