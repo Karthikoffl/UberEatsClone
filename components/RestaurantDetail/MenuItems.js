@@ -1,5 +1,7 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import React from 'react'
+import { Divider } from 'react-native-elements';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const foods = [
   {
@@ -9,19 +11,19 @@ const foods = [
     image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
   },
   {
-    title: "Lasagna",
+    title: "Lasagna1",
     description: "With butter lettuce, tomato and sauce bechamel",
     price: "$13.50",
     image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
   },
   {
-    title: "Lasagna",
+    title: "Lasagna2",
     description: "With butter lettuce, tomato and sauce bechamel",
     price: "$13.50",
     image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
   },
   {
-    title: "Lasagna",
+    title: "Lasagna3",
     description: "With butter lettuce, tomato and sauce bechamel",
     price: "$13.50",
     image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
@@ -31,7 +33,7 @@ const foods = [
 const styles = StyleSheet.create({
     menuItemStyle: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         margin: 20,
     },
     titleStyle: {
@@ -42,12 +44,18 @@ const styles = StyleSheet.create({
 
 export default function MenuItems() {
   return (
-    <View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+    {foods.map((food, index) => (
+    <View key={index}>
       <View style={styles.menuItemStyle}>
-        <FoodInfo food={foods[0]} />
-        <FoodImage food={foods[0]} />
+        <BouncyCheckbox iconStyle={{borderColor: 'lightgray'}} fillColor= "green" />
+        <FoodInfo food={food} />
+        <FoodImage food={food} />
       </View>
+      <Divider width={0.5} orientation='vertical' style={{marginHorizontal: 20}} />
     </View>
+    ))}
+  </ScrollView>
   );
 }
 
