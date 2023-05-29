@@ -2,33 +2,29 @@ import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import React from 'react'
 import { Divider } from 'react-native-elements';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { useDispatch, useSelector } from 'react-redux';
 
 const foods = [
   {
-    title: "Lasagna",
+    title: "Mayonnaise",
     description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
+    price: "₹30",
+    image: "https://insanelygoodrecipes.com/wp-content/uploads/2022/06/Homemade-Mayonnaise-with-Salt-and-Pepper.jpg",
   },
   {
-    title: "Lasagna1",
+    title: "Cheese",
     description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
+    price: "₹15",
+    image: "https://www.usdairy.com/optimize/getmedia/6ab03180-cc90-4a03-a339-13b540ecc8a5/american.jpg.jpg.aspx?format=webp",
   },
   {
-    title: "Lasagna2",
+    title: "Water",
     description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
-  },
-  {
-    title: "Lasagna3",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image: "https://recipes.timesofindia.com/thumb/55369113.cms?width=1200&height=900",
+    price: "₹10",
+    image: "https://media.istockphoto.com/id/185072125/photo/bottle-of-spring-water.jpg?s=612x612&w=0&k=20&c=8uCYpbrjtHF9Gx-P3zQ27aDafFB_oJcxzXzry9CrnRc=",
   },
 ];
+
 
 const styles = StyleSheet.create({
     menuItemStyle: {
@@ -42,13 +38,37 @@ const styles = StyleSheet.create({
     }
 });
 
-export default function MenuItems() {
+export default function MenuItems({restaurantName}) {
+  const dispatch = useDispatch();
+
+  const selectItem = (item, checkboxValue) => 
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item, 
+        restaurantName: restaurantName, 
+        checkboxValue: checkboxValue,
+      },
+    });
+
+    const cartItems = useSelector(
+      (state) => state.cartReducer.selectedItems.items);
+
+    const isFoodInCart = (food, cartItems) => {
+      Boolean(cartItems.find((item) => item.title === food.title));
+    };
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
     {foods.map((food, index) => (
     <View key={index}>
       <View style={styles.menuItemStyle}>
-        <BouncyCheckbox iconStyle={{borderColor: 'lightgray'}} fillColor= "green" />
+        <BouncyCheckbox 
+          iconStyle={{borderColor: 'lightgray'}} 
+          fillColor= "black" 
+          isChecked={isFoodInCart(food, cartItems)}
+          onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+        />
         <FoodInfo food={food} />
         <FoodImage food={food} />
       </View>

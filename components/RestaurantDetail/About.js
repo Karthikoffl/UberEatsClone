@@ -1,19 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 
-const yelpRestaurantInfo = {
-    name: 'Farmhouse Kitchen Thai Cuisine',
-    image: "https://images.adsttc.com/media/images/5e4c/1025/6ee6/7e0b/9d00/0877/large_jpg/feature_-_Main_hall_1.jpg?1582043123",
-    price: '$$',
-    reviews: '1500',
-    rating: 5,
-    categories: [
-        {title: 'Thai'}, 
-        {title: "Comfort Food"},
-        {title: "Ice Cream"},
-    ],
-};
-
 
 export default function About(props) {
     const {name, image, price, reviews, rating, categories} = props.route.params;
@@ -22,7 +9,7 @@ const formattedCategories = categories.map((cat) => cat.title).join('-');
 
 const description = `${formattedCategories} ${
     price ? '-' + price : ""
-} - :ticket ${rating} :star (${reviews} +)`;
+} - 🎫 ${rating} ⭐ (${reviews} +)`;
 
   return (
     <View>
